@@ -21,8 +21,7 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-model = genai.GenerativeModel("gemini-2.5-flash")
-
+model = genai.GenerativeModel("gemini-2.5-pro")
 # matplotlib chart
 
 def generate_chart():
