@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Issue - Community Hero AI</title>
+
+    <link rel="stylesheet" href="../static/css/report.css">
+
+    <link rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <h2>Community Hero </h2>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="#" onclick="checkLoginAccess('/report')">Report Issue</a>
+        <a href="#" onclick="checkLoginAccess('/dashboard')">Dashboard</a>
+        <a href="#" onclick="checkLoginAccess('/about')">About</a>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="hero">
+    <h1>Report Community Issue</h1>
+    <p>Help improve your area by reporting local problems.</p>
+</section>
+
+<!-- REPORT FORM -->
+<section class="about-section">
+
+    <h2>Submit New Issue</h2>
+
+    <form id="issueForm">
+
+        <!-- Issue Title -->
+        <label for="title">Issue Title</label>
+
+        <input
+            type="text"
+            id="title"
+            placeholder="Issue Title"   
+            required
+        >
+
+        <!-- Description -->
+        <label for="desc">Description</label>
+        <textarea
+            id="desc"
+            rows="5"
+            placeholder="Describe the issue..."
+            required
+        ></textarea>
+
+        <!-- Priority -->
+         <label for="priority">Priority</label>
+
+        <select id="priority">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+            <option>Emergency</option>
+        </select>
+
+        <!-- Image Upload -->
+        <label for="image">Upload Image</label>
+        <input
+            type="file"
+            id="image"
+            accept="image/*"
+            required
+        >
+        <img
+           id="preview"
+           width="250"
+           style="display:none;margin-top:15px;"
+        >
+
+        <!-- Video Upload -->
+        <label for="video">Upload Video</label>
+        <input
+            type="file"
+            id="video"
+            accept="video/*"
+        >
+        <label for="location">Location</label>
+
+        <input
+            type="text"
+            id="location"
+            placeholder="Select from map or GPS"
+            readonly
+            required
+        >
+        <small style="color:gray;">
+        Click on the map or use your current location.
+        </small>
+        <button
+            type="button"
+            onclick="getLocation()">
+            📍 Use Current Location
+        </button>
+
+        <div id="map"></div>
+
+        <!-- Submit -->
+        <button type="submit">
+            Submit Issue
+        </button>
+
+    </form>
+
+    <!-- AI RESULT -->
+    <div id="aiResult" style="display:none; margin-top:20px;">
+
+        <h3>🤖 AI Analysis</h3>
+
+        <p><b>Category:</b> <span id="aiCategory"></span></p>
+
+        <p><b>Severity:</b> <span id="aiSeverity"></span></p>
+
+        <p><b>Department:</b> <span id="aiDepartment"></span></p>
+
+        <p><b>Confidence:</b> <span id="aiConfidence"></span>%</p>
+        <p><strong>Recommended Action:</strong> <span id="aiAction"></span></p>
+
+    </div>
+
+</section>
+
+
+
+<!-- INFO -->
+<section class="about-section">
+    
+    <h2>What Happens Next?</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            📸 Upload Evidence
+        </div>
+
+        <div class="card">
+            🤖 AI Categorizes Issue
+        </div>
+
+        <div class="card">
+            👥 Community Verifies
+        </div>
+
+        <div class="card">
+            📊 Track Resolution
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Community Hero AI</p>
+</footer>
+<script>
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("login_required") === "1") {
+        alert("Login required");
+    }
+</script>
+<script src="../static/js/report.js"></script>
+
+</body>
+</html>

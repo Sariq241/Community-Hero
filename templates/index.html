@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Community Hero AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <h2>Community Hero </h2>
+
+    <div class="nav-right">
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#" onclick="checkLoginAccess('/report')">Report Issue</a>
+            <a href="#" onclick="checkLoginAccess('/dashboard')">Dashboard</a>
+            <a href="#" onclick="checkLoginAccess('/about')">About</a>
+        </div>
+
+        <button class="login-btn" onclick="openLogin()">Login</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="image-box">
+     <img src="/static/image/istockphoto-1055623782-612x612.jpg" alt="Community ">
+    </div>
+    <div class="hero-content">
+      <h1>Fix Your Community Problems with AI</h1>
+
+      <p class="scroll-text">
+        Report potholes, water leaks, garbage issues, and streetlight problems.
+        AI helps categorize and track issues in real time.
+      </p>
+
+    <!-- CTA BUTTON -->
+      <a class="btn" href="#" onclick="checkLoginAccess('/report')">Report Issue</a>
+
+      <a class="btn" href="#" onclick="checkLoginAccess('/dashboard')">View Dashboard</a>
+    </div>
+</section>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay"></div>
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal">
+    <h2>Login</h2>
+
+    <input type="text" id="name" placeholder="Enter Name">
+    <input type="email" id="email" placeholder="Enter Email">
+    <input type="text" id="mobile" placeholder="Enter Mobile Number">
+
+
+    <button onclick="login()">Submit</button>
+    <button onclick="closeLogin()">Close</button>
+</div>
+
+<!-- PROBLEM SECTION -->
+<section class="about-section">
+    <h2>Problem</h2>
+    <p>
+        Communities face issues like potholes, water leaks, garbage, and streetlight failures.
+        Reporting is slow and lacks transparency.
+    </p>
+</section>
+
+<!-- SOLUTION SECTION -->
+<section class="about-section">
+    <h2>Our Solution</h2>
+    <p>
+        Community Hero AI uses artificial intelligence to classify issues,
+        track reports, and improve communication between citizens and authorities.
+    </p>
+</section>
+
+<!-- FEATURES -->
+<section class="about-section">
+    <h2>Key Features</h2>
+
+    <div class="grid">
+        <div class="card">📸 Issue Reporting</div>
+        <div class="card">🤖 AI Categorization</div>
+        <div class="card">📍 Location Tracking</div>
+        <div class="card">📊 Live Dashboard</div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="about-section">
+    <h2>How It Works</h2>
+
+    <p>1. User reports issue</p>
+    <p>2. AI categorizes it</p>
+    <p>3. Community supports it</p>
+    <p>4. Authorities resolve it</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Community Hero AI</p>
+</footer>
+<script src="../static/js/index.js"></script>
+</body>
+</html>

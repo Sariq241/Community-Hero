@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Community Hero AI</title>
+
+    <link rel="stylesheet" href="../static/css/about.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <h2>Community Hero </h2>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#" onclick="checkLoginAccess('/report')">Report Issue</a>
+            <a href="#" onclick="checkLoginAccess('/dashboard')">Dashboard</a>
+            <a href="#" onclick="checkLoginAccess('/about')">About</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+        <h1>About Community Hero </h1>
+
+        <p>
+            Community Hero AI is an AI-powered platform designed to help citizens report, track, and resolve local community issues efficiently, improving transparency, response time, and overall civic engagement
+        </p>
+
+    </section>
+
+    <!-- BACKGROUND -->
+    <section class="about-section">
+
+        <h2>Background</h2>
+
+        <p>
+            Communities frequently face issues such as potholes,
+            water leakages, damaged streetlights, waste management concerns,
+            and public infrastructure challenges.
+            Reporting these issues is often fragmented, difficult to track,
+            and lacks transparency.
+        </p>
+
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="about-section">
+
+        <h2>Our Solution</h2>
+
+        <p>
+            Community Hero AI provides a centralized platform where citizens
+            can report local problems, track progress, and collaborate with
+            the community and authorities to ensure faster resolution.
+        </p>
+
+    </section>
+
+    <!-- FEATURES -->
+    <section class="about-section">
+
+        <h2>Key Features</h2>
+
+        <div class="grid">
+
+            <div class="card">
+                📸 Image & Video Reporting
+            </div>
+
+            <div class="card">
+                🤖 AI Issue Categorization
+            </div>
+
+            <div class="card">
+                📍 Geo-location Support
+            </div>
+
+            <div class="card">
+                👥 Community Verification
+            </div>
+
+            <div class="card">
+                📊 Impact Dashboard
+            </div>
+
+            <div class="card">
+                🔔 Real-Time Tracking
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="about-section">
+
+        <h2>How It Works</h2>
+
+        <p>1️⃣ Citizen reports a local issue.</p>
+        <p>2️⃣ AI categorizes the issue automatically.</p>
+        <p>3️⃣ Community members verify the report.</p>
+        <p>4️⃣ Issue appears on the public dashboard.</p>
+        <p>5️⃣ Authorities review and resolve the issue.</p>
+        <p>6️⃣ Status updates are shared in real time.</p>
+
+    </section>
+
+    <!-- IMPACT -->
+    <section class="about-section">
+
+        <h2>Expected Impact</h2>
+
+        <p>
+            Community Hero AI improves transparency, accountability,
+            and community participation while helping local authorities
+            respond to public issues more efficiently.
+        </p>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Community Hero AI</p>
+    </footer>
+<script>
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("login_required") === "1") {
+        alert("Login required");
+    }
+</script>
+<script src="../static/js/about.js"></script>
+</body>
+</html>

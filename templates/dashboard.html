@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Community Hero AI</title>
+
+    <link rel="stylesheet" href="../static/css/dashboard.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <h2>Community Hero </h2>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="#" onclick="checkLoginAccess('/report')">Report Issue</a>
+        <a href="#" onclick="checkLoginAccess('/dashboard')">Dashboard</a>
+        <a href="#" onclick="checkLoginAccess('/about')">About</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Community Dashboard</h1>
+    <p>Track and manage community issues in real time while monitoring their resolution progress, helping create a cleaner, safer, and more responsive local environment</p>
+</section>
+
+<!-- STATS -->
+<section class="stats-container">
+
+    <div class="stat-card">
+        <h2 id="totalIssues">0</h2>
+        <p>Total Issues</p>
+    </div>
+
+    <div class="stat-card">
+        <h2 id="pendingIssues">0</h2>
+        <p>Pending</p>
+    </div>
+
+    <div class="stat-card">
+        <h2 id="resolvedIssues">0</h2>
+        <p>Resolved</p>
+    </div>
+
+    <div class="stat-card">
+        <h2 id="activeUsers">0</h2>
+        <p>Active Citizens</p>
+    </div>
+    <div class="stat-card">
+    <h2 id="citizenPoints">0</h2>
+    <p>Citizen Points</p>
+</div>
+
+</section>
+
+<!-- AI INSIGHTS -->
+<section class="dashboard-section">
+
+    <h2>AI Insights</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            🚧 Road Issues
+        </div>
+
+        <div class="card">
+            💧 Water Issues
+        </div>
+
+        <div class="card">
+            🗑 Garbage Issues
+        </div>
+
+        <div class="card">
+            💡 Streetlight Issues
+        </div>
+        <div class="card" id="predictionCard">
+             📈Most Reported Issue
+             <h3 id="prediction">No Data</h3>
+        </div>
+
+    </div>
+
+</section>
+<!-- Chart Section -->
+<section class="dashboard-section">
+    <h2>Issue Analytics</h2>
+
+    <div class="chart-container">
+        <img
+            id="chartImage"
+            src="{{ url_for('static', filename='images/chart.png') }}"
+            alt="Issue Analytics"
+            width="700">
+    </div>
+</section>
+
+<!-- REPORTED ISSUES -->
+<section class="dashboard-section">
+
+    <h2>Reported Issues</h2>
+    <div class="filter-buttons">
+        <button onclick="showPending()">🟡 Current Issues</button>
+        <button onclick="showResolved()">🟢 Solved Issues</button>
+    </div>
+
+    <div id="issuesList">
+        <!-- JS se data aayega -->
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Community Hero AI</p>
+</footer>
+<script>
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("login_required") === "1") {
+        alert("Login required");
+    }
+</script>
+<script src="../static/js/dashboard.js"></script>
+
+</body>
+</html>
