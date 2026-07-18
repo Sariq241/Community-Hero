@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, abort
 import sqlite3
-import google.generativeai as genai
+from google import genai
 from PIL import Image
 import io
 import os
@@ -16,7 +16,10 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY environment variable not found.")
 
-genai.configure(api_key=GEMINI_API_KEY)
+client = genai.Client(
+    api_key=GEMINI_API_KEY
+)
+
 
 
 UPLOAD_FOLDER = "static/uploads"
@@ -27,7 +30,9 @@ def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
-model = genai.GenerativeModel("gemini-1.5-flash")
+
+
+MODEL_NAME = "gemini-2.0-flash-001"
 # matplotlib chart
 
 def generate_chart():
@@ -153,37 +158,46 @@ Recommended Action: <one short sentence>
             print("Processing Image...")
             img = Image.open(image)
 
-            response = model.generate_content([
-                prompt,
-                img
-            ])
+            response = client.models.generate_content(
+                model=MODEL_NAME,
+                contents=[
+                    prompt,
+                    img
+                ]
+            )
         elif video:
             import time
 
             try:
                 filename = str(int(time.time())) + "_" + video.filename
-                video_path = os.path.join(UPLOAD_FOLDER, filename)
+                video_path = os.path.join(
+                    UPLOAD_FOLDER,
+                    filename
+                )
                 video.save(video_path)
                 
 
-                uploaded_video = genai.upload_file(path=video_path)
+                uploaded_video = client.files.upload(
+                    file=video_path
+                )
 
-                # wait until ready
-                while uploaded_video.state.name == "PROCESSING":
-                    time.sleep(2)
-                    uploaded_video = genai.get_file(uploaded_video.name)
-
-                if uploaded_video.state.name == "FAILED":
-                    return jsonify({"error": "Video processing failed"}), 500
-
-                response = model.generate_content([prompt, uploaded_video])
+                response = client.models.generate_content(
+                    model=MODEL_NAME,
+                    contents=[
+                        prompt,
+                        uploaded_video
+                    ]
+                )
             except Exception as e:
                 print("VIDEO ERROR:", e)
                 return jsonify({"error": "Video upload failed"}), 500
 
         else:
             print("Text Only...")
-            response = model.generate_content(prompt)
+            response = client.models.generate_content(
+                model=MODEL_NAME,
+                contents=prompt
+            )
 
         answer = response.text
         print(answer)
