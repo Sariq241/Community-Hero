@@ -4,6 +4,7 @@ from google import genai
 from PIL import Image
 import io
 import os
+import time
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -32,7 +33,7 @@ def get_db_connection():
     return conn
 
 
-MODEL_NAME = "gemini-2.0-flash-001"
+MODEL_NAME = "gemini-2.0-flash"
 # matplotlib chart
 
 def generate_chart():
@@ -166,7 +167,6 @@ Recommended Action: <one short sentence>
                 ]
             )
         elif video:
-            import time
 
             try:
                 filename = str(int(time.time())) + "_" + video.filename
@@ -180,6 +180,11 @@ Recommended Action: <one short sentence>
                 uploaded_video = client.files.upload(
                     file=video_path
                 )
+                while uploaded_video.state.name == "PROCESSING":
+                    time.sleep(2)
+                    uploaded_video = client.files.get(
+                        name=uploaded_video.name
+                    )
 
                 response = client.models.generate_content(
                     model=MODEL_NAME,
@@ -202,11 +207,16 @@ Recommended Action: <one short sentence>
         answer = response.text
         print(answer)
 
-        category = answer.split("Category:")[1].split("\n")[0].strip()
-        severity = answer.split("Severity:")[1].split("\n")[0].strip()
-        department = answer.split("Department:")[1].split("\n")[0].strip()
-        confidence = answer.split("Confidence:")[1].split("\n")[0].strip()
+        try:
+            category = answer.split("Category:")[1].split("\n")[0].strip()
+            severity = answer.split("Severity:")[1].split("\n")[0].strip()
+            department = answer.split("Department:")[1].split("\n")[0].strip()
+            confidence = answer.split("Confidence:")[1].split("\n")[0].strip()
+            action = answer.split("Recommended Action:")[1].strip()
 
+        except Exception as e:
+            print("FORMAT ERROR:", e)
+            return jsonify({"error": "Gemini response format changed"}), 500
         try:
             confidence = int(confidence)
         except:
