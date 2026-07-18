@@ -11,17 +11,23 @@ import matplotlib.pyplot as plt
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "community_hero_secret")
 # Gemini API Key
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not GEMINI_API_KEY:
+    raise ValueError("GEMINI_API_KEY environment variable not found.")
+
+genai.configure(api_key=GEMINI_API_KEY)
 
 
 UPLOAD_FOLDER = "static/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+DB_PATH = os.getenv("DATABASE_PATH", "community.db")
+
 def get_db_connection():
-    conn = sqlite3.connect("community.db")
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
-
-model = genai.GenerativeModel("gemini-2.5-flash-lite")
+model = genai.GenerativeModel("gemini-2.5-flash")
 # matplotlib chart
 
 def generate_chart():
