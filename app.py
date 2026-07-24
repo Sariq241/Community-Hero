@@ -33,7 +33,7 @@ def get_db_connection():
     return conn
 
 
-MODEL_NAME = "gemini-2.0-flash"
+MODEL_NAME = "gemini-2.5-pro"
 # matplotlib chart
 
 def generate_chart():
